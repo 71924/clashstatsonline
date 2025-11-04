@@ -7,12 +7,9 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// get API key from environment variables (Render will provide this)
 const API_KEY = process.env.API_KEY;
 
-// serve frontend files
-app.use(express.static(path.join(__dirname, "public")));
-
+// 1️⃣ API routes go first
 app.get("/api/player/:tag", async (req, res) => {
   try {
     const tag = encodeURIComponent("#" + req.params.tag);
@@ -28,6 +25,8 @@ app.get("/api/player/:tag", async (req, res) => {
   }
 });
 
-// use Render’s assigned port, or 3000 locally
+// 2️⃣ Then serve frontend files
+app.use(express.static(path.join(__dirname, "public")));
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
