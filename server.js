@@ -7,8 +7,8 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// replace this with your real Clash Royale API key
-const API_KEY = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjIxZjYyYzY0LWI0MzYtNDBhNC04MTU3LTkxMjM3NWVhYzcwMyIsImlhdCI6MTc2MjIxMTY1Nywic3ViIjoiZGV2ZWxvcGVyLzhhYmZjZTNlLWQyN2ItNzAwOC03NzFhLTVlODNjODcyMjA0NyIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxNzQuOTIuMTc3LjEyOSJdLCJ0eXBlIjoiY2xpZW50In1dfQ.c26HFCgXYZ5-42ySaogjt0ppfWcypyYt4fhLkzOal1bqsJ7DIj_A27oH67g59LacVjefKlJzxRA0UJYcydh1SQ";
+// get API key from environment variables (Render will provide this)
+const API_KEY = process.env.API_KEY;
 
 // serve frontend files
 app.use(express.static(path.join(__dirname, "public")));
@@ -28,4 +28,6 @@ app.get("/api/player/:tag", async (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log("Server running on http://localhost:3000"));
+// use Render’s assigned port, or 3000 locally
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
